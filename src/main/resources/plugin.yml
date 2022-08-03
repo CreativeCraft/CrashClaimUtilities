@@ -1,0 +1,7 @@
+name: CrashClaimUtilities
+version: "${version}"
+authors: [Log1x]
+description: "An addon plugin for CrashClaim containing useful utility commands."
+main: org.creativecraft.crashclaimutilities.CrashClaimUtilities
+depend: [CrashClaim]
+api-version: 1.18

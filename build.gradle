@@ -1,0 +1,48 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '7.1.1'
+  id 'java'
+}
+
+group = 'org.creativecraft'
+version = '1.0.0'
+
+sourceCompatibility = '16'
+targetCompatibility = '16'
+
+repositories {
+  mavenCentral()
+  maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/public/' }
+  maven { url = 'https://oss.sonatype.org/content/groups/public/' }
+  maven { url = 'https://repo.aikar.co/content/groups/aikar/' }
+  maven { url = 'https://repo.minebench.de/' }
+  maven { url = 'https://maven.enginehub.org/repo/' }
+  flatDir {
+    dirs 'libs'
+  }
+}
+
+dependencies {
+  compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
+  compileOnly fileTree(dir: 'libs', include: '*.jar')
+  implementation 'co.aikar:acf-bukkit:0.5.0-SNAPSHOT'
+  implementation 'de.themoep:minedown:1.7.0-SNAPSHOT'
+  implementation 'org.bstats:bstats-bukkit-lite:1.8'
+}
+
+shadowJar {
+  relocate 'co.aikar.commands', 'org.creativecraft.crashclaimutilities.lib.acf'
+  relocate 'co.aikar.locales', 'org.creativecraft.crashclaimutilities.lib.locales'
+  relocate 'de.themoep.minedown', 'org.creativecraft.crashclaimutilities.lib.minedown'
+  relocate 'org.bstats', 'org.creativecraft.crashclaimutilities.lib.bstats'
+}
+
+processResources {
+  def props = [version: version]
+  inputs.properties props
+  filteringCharset 'UTF-8'
+  filesMatching('plugin.yml') {
+    expand props
+  }
+}
+
+build.dependsOn shadowJar
