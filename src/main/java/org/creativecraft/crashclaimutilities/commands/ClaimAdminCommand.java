@@ -124,7 +124,9 @@ public class ClaimAdminCommand extends BaseCommand {
             return;
         }
 
-        ArrayList<Claim> claims = plugin.getCrashClaim().getDataManager().getOwnedClaims(player.getUniqueId());
+        ArrayList<Claim> claims = plugin.getCrashClaim().getDataManager().getOwnedClaims(
+            player.getUniqueId()
+        );
 
         if (claims == null || claims.isEmpty()) {
             plugin.sendMessage(sender, plugin.localize("messages.player.empty"));
@@ -163,22 +165,29 @@ public class ClaimAdminCommand extends BaseCommand {
     @CommandPermission("crashclaim.admin.claimadmin")
     @Syntax("<id>")
     @Description("Teleport to the specified claim.")
-    public void onTeleport(CommandSender sender, Integer value) {
+    public void onTeleport(CommandSender sender, @Optional String value) {
         if (!(sender instanceof Player player)) {
             plugin.sendMessage(sender, plugin.localize("messages.teleport.console"));
             return;
         }
 
-        Claim claim = null;
+        if (!StringUtils.isNumeric(value)) {
+            plugin.sendMessage(sender, plugin.localize("messages.teleport.invalid-claim"));
+            return;
+        }
+
+        Claim claim;
 
         try {
-            claim = plugin.getCrashClaim().getApi().getClaim(value);
+            claim = plugin.getCrashClaim().getApi().getClaim(
+                Integer.parseInt(value)
+            );
         } catch (Exception e) {
             plugin.sendMessage(
                 player,
                 plugin
                     .localize("messages.teleport.not-found")
-                    .replace("{id}", Integer.toString(value))
+                    .replace("{id}", value)
             );
 
             return;
@@ -224,15 +233,24 @@ public class ClaimAdminCommand extends BaseCommand {
     @CommandPermission("crashclaim.admin.claimadmin")
     @Syntax("<id>")
     @Description("Delete the specified claim.")
-    public void onDelete(CommandSender sender, Integer value) {
-        Claim claim = plugin.getCrashClaim().getApi().getClaim(value);
+    public void onDelete(CommandSender sender, @Optional String value) {
+        if (!StringUtils.isNumeric(value)) {
+            plugin.sendMessage(sender, plugin.localize("messages.delete.invalid-claim"));
+            return;
+        }
 
-        if (claim == null) {
+        Claim claim;
+
+        try {
+            claim = plugin.getCrashClaim().getApi().getClaim(
+                Integer.parseInt(value)
+            );
+        } catch (Exception e) {
             plugin.sendMessage(
                 sender,
                 plugin
                     .localize("messages.delete.not-found")
-                    .replace("{id}", Integer.toString(value))
+                    .replace("{id}", value)
             );
 
             return;

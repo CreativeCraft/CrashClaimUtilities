@@ -61,14 +61,16 @@ public class MessagesConfig {
         messages.addDefault("messages.player.empty", "That &aplayer&f does not have any &aclaims&f.");
         messages.addDefault("messages.player.description", "Retrieve a list of the specified player's claims.");
 
+        messages.addDefault("messages.teleport.success", "You have teleported to claim &a{id}&f owned by &a{owner}&f.");
         messages.addDefault("messages.teleport.not-found", "The claim &a{id}&f could not be found.");
         messages.addDefault("messages.teleport.unknown-world", "The &aworld&f that contains this &aclaim&f could not be found.");
-        messages.addDefault("messages.teleport.success", "You have teleported to claim &a{id}&f owned by &a{owner}&f.");
+        messages.addDefault("messages.teleport.invalid-claim", "You must specify a valid &aclaim id&f.");
         messages.addDefault("messages.teleport.console", "You must be &ain-game&f to teleport to a claim.");
         messages.addDefault("messages.teleport.description", "Teleport to the specified claim.");
 
-        messages.addDefault("messages.delete.not-found", "The claim &a{id}&f could not be found.");
         messages.addDefault("messages.delete.success", "The claim &a{id}&f has been deleted.");
+        messages.addDefault("messages.delete.not-found", "The claim &a{id}&f could not be found.");
+        messages.addDefault("messages.delete.invalid-claim", "You must specify a valid &aclaim id&f.");
         messages.addDefault("messages.delete.description", "Delete the specified claim.");
 
         messages.addDefault("messages.trust.not-claim", "You are not &astanding&f in a claim.");
