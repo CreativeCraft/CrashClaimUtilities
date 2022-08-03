@@ -14,18 +14,19 @@ This is an addon plugin for [CrashClaim](https://www.spigotmc.org/resources/cras
 - Easier player trusting using `/trust <name>`.
 - Offline player support.
 - Console support (where applicable).
-- 100% customizable in every way.
+- 100% customizable messages & command prefix.
 
 ## Commands / Permissions
 
-| **Command**                 | **Description**                                          | **Permission**              |
-|-----------------------------|----------------------------------------------------------|-----------------------------|
-| /trust \<name\>             | Open the Claim permission menu for the specified player. | crashclaim.user.trust       |                                                          |                             |
-| /claimadmin list            | Retrieve a list of claims.                               | crashclaim.admin.claimadmin |
-| /claimadmin player \<name\> | Retrieve a list of the specified player's claims.        | crashclaim.admin.claimadmin |
-| /claimadmin teleport \<id\> | Teleport to the specified claim.                         | crashclaim.admin.claimadmin |
-| /claimadmin delete \<id\>   | Delete the specified claim.                              | crashclaim.admin.claimadmin |
-| /claimadmin reload          | Reload the plugin configuration.                         | crashclaim.admin.claimadmin |                    |
+| **Command**                     | **Description**                                          | **Permission**              |
+|---------------------------------|----------------------------------------------------------|-----------------------------|
+| /trust \<name\>                 | Open the Claim permission menu for the specified player. | crashclaim.user.trust       |                                                          |                             |
+| /claimadmin list [page] [world] | Retrieve a list of claims.                               | crashclaim.admin.claimadmin |
+| /claimadmin player \<name\>     | Retrieve a list of the specified player's claims.        | crashclaim.admin.claimadmin |
+| /claimadmin teleport \<id\>     | Teleport to the specified claim.                         | crashclaim.admin.claimadmin |
+| /claimadmin delete \<id\>       | Delete the specified claim.                              | crashclaim.admin.claimadmin |
+| /claimadmin help                | View the help menu.                                      | crashclaim.admin.claimadmin |                          |
+| /claimadmin reload              | Reload the plugin configuration.                         | crashclaim.admin.claimadmin |                    |
 
 ## Support / Feature Requests
 
