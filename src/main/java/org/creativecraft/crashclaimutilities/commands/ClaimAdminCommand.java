@@ -69,7 +69,13 @@ public class ClaimAdminCommand extends BaseCommand {
             return;
         }
 
-        claimChunks.values().forEach(x -> claims.add(x.get(0)));
+        claimChunks.values().forEach(claim -> {
+            if (claim.isEmpty() || claim.get(0) == null) {
+                return;
+            }
+
+            claims.add(claim.get(0));
+        });
 
         claims.stream().skip(10L * page).limit(10).forEach(claimPage::add);
 
