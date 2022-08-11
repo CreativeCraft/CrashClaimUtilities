@@ -73,6 +73,12 @@ public class MessagesConfig {
         messages.addDefault("messages.delete.invalid-claim", "You must specify a valid &aclaim id&f.");
         messages.addDefault("messages.delete.description", "Delete the specified claim.");
 
+        messages.addDefault("messages.setowner.success", "Successfully set claim &a{id}&f owner to &a{player}&f.");
+        messages.addDefault("messages.setowner.no-target", "You must specify a &aplayer&f name.");
+        messages.addDefault("messages.setowner.invalid-claim", "You must specify a valid &aclaim id&f.");
+        messages.addDefault("messages.setowner.already-owned", "The player &a{player}&f already owns claim &a{id}&f.");
+        messages.addDefault("messages.setowner.description", "Set the owner of the specified claim.");
+
         messages.addDefault("messages.trust.not-claim", "You are not &astanding&f in a claim.");
         messages.addDefault("messages.trust.self", "You can not &atrust&f yourself.");
         messages.addDefault("messages.trust.empty", "You must specify a &aplayer&f to trust.");
@@ -81,6 +87,15 @@ public class MessagesConfig {
         messages.addDefault("messages.trust.no-permission", "You do not have permission to &atrust&f on this claim.");
         messages.addDefault("messages.trust.console", "You must be &ain-game&f to trust players to a claim.");
         messages.addDefault("messages.trust.description", "Open the claim permission menu for the specified player.");
+
+        messages.addDefault("messages.transfer.success", "You have successfully &atransferred&f ownership of claim &a{id}&f to &a{player}&f.");
+        messages.addDefault("messages.transfer.not-claim", "You are not &astanding&f in a claim.");
+        messages.addDefault("messages.transfer.already-owned", "You already &aown&f this claim.");
+        messages.addDefault("messages.transfer.empty", "You must specify a &aplayer&f to transfer &aownership&f to.");
+        messages.addDefault("messages.transfer.not-found", "The &aplayer&f specified could not be found.");
+        messages.addDefault("messages.transfer.not-owner", "You do not &aown&f this claim.");
+        messages.addDefault("messages.transfer.console", "You must be &ain-game&f to transfer claim &aownership&f to another player.");
+        messages.addDefault("messages.transfer.description", "Transfer ownership of a claim to another player.");
 
         messages.addDefault("messages.reload.success", "Plugin has been &asuccessfully&f reloaded.");
         messages.addDefault("messages.reload.failed", "Plugin &cfailed&f to reload. Check console for details.");

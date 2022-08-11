@@ -61,11 +61,6 @@ public class ClaimTrustCommand extends BaseCommand {
             return;
         }
 
-        if (player.getUniqueId() == target) {
-            plugin.sendMessage(player, plugin.localize("messages.trust.self"));
-            return;
-        }
-
         Claim claim = plugin.getCrashClaim().getDataManager().getClaim(
             player.getLocation().getBlockX(),
             player.getLocation().getBlockZ(),
@@ -74,6 +69,11 @@ public class ClaimTrustCommand extends BaseCommand {
 
         if (claim == null) {
             plugin.sendMessage(player, plugin.localize("messages.trust.not-claim"));
+            return;
+        }
+
+        if (player.getUniqueId() == target) {
+            plugin.sendMessage(player, plugin.localize("messages.trust.self"));
             return;
         }
 
