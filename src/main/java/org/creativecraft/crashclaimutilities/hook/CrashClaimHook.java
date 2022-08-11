@@ -8,12 +8,18 @@ import org.creativecraft.crashclaimutilities.CrashClaimUtilities;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class CrashClaimHook {
     private final CrashClaimUtilities plugin;
+    private HashMap<UUID, HashSet<Integer>> claimIds;
+    private HashMap<UUID, Long> claimIdsExpiry;
 
     public CrashClaimHook(CrashClaimUtilities plugin) {
         this.plugin = plugin;
+        this.claimIds = new HashMap<>();
+        this.claimIdsExpiry = new HashMap<>();
     }
 
     /**
@@ -34,14 +40,45 @@ public class CrashClaimHook {
         }
 
         claimChunks.values().forEach(claim -> {
-            Integer id = claim.get(0);
-
-            if (id == null) {
+            if (claim.isEmpty() || claim.get(0) == null) {
                 return;
             }
 
-            claims.add(id);
+            claims.add(claim.get(0));
         });
+
+        return claims;
+    }
+
+    /**
+     * Retrieve cached claim ID's.
+     *
+     * @param  world The world.
+     * @return HashSet
+     */
+    public HashSet<Integer> getClaimIds(World world) {
+        UUID uuid = world.getUID();
+
+        if (
+            claimIds.containsKey(uuid) &&
+            claimIdsExpiry.containsKey(uuid) &&
+            claimIdsExpiry.get(uuid) > System.currentTimeMillis()
+        ) {
+            return claimIds.get(uuid);
+        }
+
+        HashSet<Integer> claims = getClaims(world);
+
+        if (claims == null || claims.isEmpty()) {
+            return null;
+        }
+
+        if (claimIds.containsKey(uuid)) {
+            claimIds.get(uuid).clear();
+        }
+
+        claimIds.put(uuid, claims);
+        claimIdsExpiry.put(uuid, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(15));
 
         return claims;
     }

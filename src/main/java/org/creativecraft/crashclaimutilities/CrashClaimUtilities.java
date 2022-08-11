@@ -18,6 +18,9 @@ import org.creativecraft.crashclaimutilities.hook.CrashClaimHook;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class CrashClaimUtilities extends JavaPlugin {
     public static CrashClaimUtilities plugin;
@@ -69,15 +72,36 @@ public class CrashClaimUtilities extends JavaPlugin {
             }
 
             HashSet<String> claims = new HashSet<>();
-            HashSet<Integer> claimList = getCrashClaimHook().getClaims(c.getPlayer().getWorld());
+            HashSet<Integer> claimList = getCrashClaimHook().getClaimIds(c.getPlayer().getWorld());
 
-            if (claimList.isEmpty()) {
+            if (claimList == null || claimList.isEmpty()) {
                 return null;
             }
 
             claimList.forEach(claim -> claims.add(Integer.toString(claim)));
 
             return claims;
+        });
+
+        commandManager.getCommandCompletions().registerCompletion("listPages", c -> {
+            if (!(c.getSender() instanceof Player)) {
+                return null;
+            }
+
+            HashSet<Integer> claimList = getCrashClaimHook().getClaimIds(c.getPlayer().getWorld());
+
+            if (claimList == null || claimList.isEmpty()) {
+                return null;
+            }
+
+            HashSet<String> pages = new HashSet<>();
+            IntStream
+                .range(0, (claimList.size() / 10) + 1)
+                .boxed()
+                .toList()
+                .forEach(page -> pages.add(Integer.toString(page + 1)));
+
+            return pages;
         });
 
         if (getConfig().getBoolean("commands.admin.enabled")) {

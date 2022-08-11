@@ -9,7 +9,6 @@ import net.crashcraft.crashclaim.claimobjects.Claim;
 import net.crashcraft.crashclaim.claimobjects.PermState;
 import net.crashcraft.crashclaim.claimobjects.permission.PlayerPermissionSet;
 import net.crashcraft.crashclaim.paperlib.PaperLib;
-import net.crashcraft.crashclaim.permissions.PermissionRoute;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -39,6 +38,7 @@ public class ClaimAdminCommand extends BaseCommand {
     @Subcommand("list")
     @CommandPermission("crashclaim.admin.claimadmin")
     @Syntax("[page] [world]")
+    @CommandCompletion("@listPages @worlds")
     @Description("Retrieve a list of claims.")
     public void onList(CommandSender sender, @Optional Integer page, @Optional String value) {
         HashSet<Integer> claims;
