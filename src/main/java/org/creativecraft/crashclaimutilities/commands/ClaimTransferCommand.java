@@ -58,7 +58,7 @@ public class ClaimTransferCommand extends BaseCommand {
         }
 
         if (target == null) {
-            plugin.sendMessage(player, plugin.localize("messages.transfer.not-found"));
+            plugin.sendMessage(player, plugin.localize("messages.transfer.invalid-player"));
             return;
         }
 
@@ -78,7 +78,7 @@ public class ClaimTransferCommand extends BaseCommand {
             return;
         }
 
-        if (player.getUniqueId() == target || claim.getOwner() == target) {
+        if (claim.getOwner().equals(target)) {
             plugin.sendMessage(player, plugin.localize("messages.transfer.already-owned"));
             return;
         }
@@ -87,10 +87,6 @@ public class ClaimTransferCommand extends BaseCommand {
         UUID previousOwner = claim.getOwner();
 
         claim.setOwner(target);
-        claim.getPerms().setPlayerPermissionSet(
-            target,
-            plugin.getCrashClaim().getDataManager().getPermissionSetup().getOwnerPermissionSet().clone()
-        );
 
         claim.getPerms().setPlayerPermissionSet(
             previousOwner,
@@ -108,11 +104,26 @@ public class ClaimTransferCommand extends BaseCommand {
             )
         );
 
+        claim.getPerms().setPlayerPermissionSet(
+            target,
+            plugin.getCrashClaim().getDataManager().getPermissionSetup().getOwnerPermissionSet().clone()
+        );
+
         if (plugin.getConfig().getBoolean("commands.transfer.keep-as-admin")) {
             claim.getPerms().setPlayerPermission(
                 previousOwner,
                 PermissionRoute.ADMIN,
                 1
+            );
+        }
+
+        if (playerTarget != null && playerTarget.isOnline()) {
+            plugin.sendMessage(
+                playerTarget,
+                plugin
+                    .localize("messages.transfer.success-other")
+                    .replace("{player}", player.getName())
+                    .replace("{id}", Integer.toString(claim.getId()))
             );
         }
 

@@ -16,10 +16,7 @@ import org.creativecraft.crashclaimutilities.config.MessagesConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.creativecraft.crashclaimutilities.hook.CrashClaimHook;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class CrashClaimUtilities extends JavaPlugin {
@@ -83,12 +80,12 @@ public class CrashClaimUtilities extends JavaPlugin {
             return claims;
         });
 
-        commandManager.getCommandCompletions().registerCompletion("listPages", c -> {
-            if (!(c.getSender() instanceof Player)) {
+        commandManager.getCommandCompletions().registerCompletion("listPages", command -> {
+            if (!(command.getSender() instanceof Player)) {
                 return null;
             }
 
-            HashSet<Integer> claimList = getCrashClaimHook().getClaimIds(c.getPlayer().getWorld());
+            HashSet<Integer> claimList = getCrashClaimHook().getClaimIds(command.getPlayer().getWorld());
 
             if (claimList == null || claimList.isEmpty()) {
                 return null;
