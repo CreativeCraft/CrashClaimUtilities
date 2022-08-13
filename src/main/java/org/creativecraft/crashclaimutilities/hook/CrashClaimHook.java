@@ -82,20 +82,4 @@ public class CrashClaimHook {
 
         return claims;
     }
-
-    /**
-     * Retrieve the container permission set.
-     *
-     * @param  value The permission value.
-     * @return HashMap
-     */
-    public HashMap<Material, Integer> getContainers(Integer value) {
-        HashMap<Material, Integer> containers = new HashMap<>();
-
-        for (Material item : plugin.getCrashClaim().getDataManager().getPermissionSetup().getTrackedContainers()) {
-            containers.put(item, value);
-        }
-
-        return containers;
-    }
 }
