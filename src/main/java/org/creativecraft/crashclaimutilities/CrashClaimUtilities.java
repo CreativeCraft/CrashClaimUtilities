@@ -80,12 +80,12 @@ public class CrashClaimUtilities extends JavaPlugin {
             return claims;
         });
 
-        commandManager.getCommandCompletions().registerCompletion("listPages", command -> {
-            if (!(command.getSender() instanceof Player)) {
+        commandManager.getCommandCompletions().registerCompletion("listPages", c -> {
+            if (!(c.getSender() instanceof Player)) {
                 return null;
             }
 
-            HashSet<Integer> claimList = getCrashClaimHook().getClaimIds(command.getPlayer().getWorld());
+            HashSet<Integer> claimList = getCrashClaimHook().getClaimIds(c.getPlayer().getWorld());
 
             if (claimList == null || claimList.isEmpty()) {
                 return null;

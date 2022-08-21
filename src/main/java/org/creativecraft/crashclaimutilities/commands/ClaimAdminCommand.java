@@ -387,7 +387,8 @@ public class ClaimAdminCommand extends BaseCommand {
         for (HelpEntry entry : help.getHelpEntries()) {
             plugin.sendRawMessage(
                 sender,
-                plugin.localize("messages.help.format")
+                plugin
+                    .localize("messages.help.format")
                     .replace("{command}", entry.getCommand())
                     .replace("{parameters}", entry.getParameterSyntax())
                     .replace("{description}", plugin.localize("messages." + entry.getCommand().split("\\s+")[1] + ".description"))

@@ -1,7 +1,6 @@
 package org.creativecraft.crashclaimutilities.hook;
 
 import net.crashcraft.crashclaim.fastutil.fastutil.longs.Long2ObjectOpenHashMap;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.creativecraft.crashclaimutilities.CrashClaimUtilities;
 
@@ -40,7 +39,7 @@ public class CrashClaimHook {
         }
 
         claimChunks.values().forEach(claim -> {
-            if (claim.isEmpty() || claim.get(0) == null) {
+            if (claim == null || claim.isEmpty() || claim.get(0) == null) {
                 return;
             }
 
