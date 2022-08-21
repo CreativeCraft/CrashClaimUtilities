@@ -16,10 +16,7 @@ import org.creativecraft.crashclaimutilities.config.MessagesConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.creativecraft.crashclaimutilities.hook.CrashClaimHook;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class CrashClaimUtilities extends JavaPlugin {

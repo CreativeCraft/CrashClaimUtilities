@@ -1,7 +1,6 @@
 package org.creativecraft.crashclaimutilities.hook;
 
 import net.crashcraft.crashclaim.fastutil.fastutil.longs.Long2ObjectOpenHashMap;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.creativecraft.crashclaimutilities.CrashClaimUtilities;
 
@@ -40,7 +39,7 @@ public class CrashClaimHook {
         }
 
         claimChunks.values().forEach(claim -> {
-            if (claim.isEmpty() || claim.get(0) == null) {
+            if (claim == null || claim.isEmpty() || claim.get(0) == null) {
                 return;
             }
 
@@ -81,21 +80,5 @@ public class CrashClaimHook {
         claimIdsExpiry.put(uuid, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(15));
 
         return claims;
-    }
-
-    /**
-     * Retrieve the container permission set.
-     *
-     * @param  value The permission value.
-     * @return HashMap
-     */
-    public HashMap<Material, Integer> getContainers(Integer value) {
-        HashMap<Material, Integer> containers = new HashMap<>();
-
-        for (Material item : plugin.getCrashClaim().getDataManager().getPermissionSetup().getTrackedContainers()) {
-            containers.put(item, value);
-        }
-
-        return containers;
     }
 }

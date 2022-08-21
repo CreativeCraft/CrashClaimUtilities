@@ -118,7 +118,7 @@ public class ClaimAdminCommand extends BaseCommand {
         OfflinePlayer player = plugin.getServer().getOfflinePlayer(target);
 
         if (player.getName() == null || !player.hasPlayedBefore()) {
-            plugin.sendMessage(sender, plugin.localize("messages.player.not-found"));
+            plugin.sendMessage(sender, plugin.localize("messages.player.invalid-player"));
             return;
         }
 
@@ -289,10 +289,10 @@ public class ClaimAdminCommand extends BaseCommand {
             return;
         }
 
-        OfflinePlayer player = plugin.getServer().getOfflinePlayer(target);
+        OfflinePlayer offlinePlayer = plugin.getServer().getOfflinePlayer(target);
 
-        if (player.getName() == null || !player.hasPlayedBefore()) {
-            plugin.sendMessage(sender, plugin.localize("messages.setowner.not-found"));
+        if (offlinePlayer.getName() == null || !offlinePlayer.hasPlayedBefore()) {
+            plugin.sendMessage(sender, plugin.localize("messages.setowner.invalid-player"));
             return;
         }
 
@@ -313,25 +313,21 @@ public class ClaimAdminCommand extends BaseCommand {
             return;
         }
 
-        if (player.getUniqueId() == claim.getOwner()) {
+        if (claim.getOwner().equals(offlinePlayer.getUniqueId())) {
             plugin.sendMessage(
                 sender,
                 plugin
                     .localize("messages.setowner.already-owned")
-                    .replace("{player}", player.getName())
+                    .replace("{player}", offlinePlayer.getName())
                     .replace("{id}", Integer.toString(claim.getId()))
             );
+
             return;
         }
 
         UUID previousOwner = claim.getOwner();
 
-        claim.setOwner(player.getUniqueId());
-
-        claim.getPerms().setPlayerPermissionSet(
-            player.getUniqueId(),
-            plugin.getCrashClaim().getDataManager().getPermissionSetup().getOwnerPermissionSet().clone()
-        );
+        claim.setOwner(offlinePlayer.getUniqueId());
 
         claim.getPerms().setPlayerPermissionSet(
             previousOwner,
@@ -349,12 +345,29 @@ public class ClaimAdminCommand extends BaseCommand {
             )
         );
 
+        claim.getPerms().setPlayerPermissionSet(
+            offlinePlayer.getUniqueId(),
+            plugin.getCrashClaim().getDataManager().getPermissionSetup().getOwnerPermissionSet().clone()
+        );
+
+        Player player = plugin.getServer().getPlayer(target);
+
+        if (player != null && player.isOnline()) {
+            plugin.sendMessage(
+                player,
+                plugin
+                    .localize("messages.setowner.success-other")
+                    .replace("{player}", sender.getName())
+                    .replace("{id}", Integer.toString(claim.getId()))
+            );
+        }
+
         plugin.sendMessage(
             sender,
             plugin
                 .localize("messages.setowner.success")
                 .replace("{id}", Integer.toString(claim.getId()))
-                .replace("{player}", player.getName())
+                .replace("{player}", offlinePlayer.getName())
         );
     }
 
@@ -374,7 +387,8 @@ public class ClaimAdminCommand extends BaseCommand {
         for (HelpEntry entry : help.getHelpEntries()) {
             plugin.sendRawMessage(
                 sender,
-                plugin.localize("messages.help.format")
+                plugin
+                    .localize("messages.help.format")
                     .replace("{command}", entry.getCommand())
                     .replace("{parameters}", entry.getParameterSyntax())
                     .replace("{description}", plugin.localize("messages." + entry.getCommand().split("\\s+")[1] + ".description"))

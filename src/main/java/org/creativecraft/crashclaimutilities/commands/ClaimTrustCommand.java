@@ -57,7 +57,7 @@ public class ClaimTrustCommand extends BaseCommand {
         }
 
         if (target == null) {
-            plugin.sendMessage(player, plugin.localize("messages.trust.not-found"));
+            plugin.sendMessage(player, plugin.localize("messages.trust.invalid-player"));
             return;
         }
 
