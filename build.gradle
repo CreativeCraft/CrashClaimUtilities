@@ -1,13 +1,15 @@
 plugins {
-  id 'com.github.johnrengelman.shadow' version '7.1.1'
+  id 'com.github.johnrengelman.shadow' version '8.1.1'
   id 'java'
 }
 
 group = 'org.creativecraft'
-version = '1.0.4'
+version = '1.0.5'
 
-sourceCompatibility = '16'
-targetCompatibility = '16'
+java {
+  sourceCompatibility = JavaVersion.VERSION_16
+  targetCompatibility = JavaVersion.VERSION_16
+}
 
 repositories {
   mavenCentral()
@@ -24,8 +26,8 @@ repositories {
 dependencies {
   compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
   compileOnly fileTree(dir: 'libs', include: '*.jar')
-  implementation 'co.aikar:acf-bukkit:0.5.0-SNAPSHOT'
-  implementation 'de.themoep:minedown:1.7.0-SNAPSHOT'
+  implementation 'co.aikar:acf-bukkit:0.5.1-SNAPSHOT'
+  implementation 'de.themoep:minedown:1.7.1-SNAPSHOT'
   implementation 'org.bstats:bstats-bukkit-lite:1.8'
 }
 
